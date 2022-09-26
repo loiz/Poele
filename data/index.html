@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>%NAME%</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div class="topnav">
+    <h1>%NAME%</h1>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-title">
+        Paramettres
+      </div>
+      <form action="/" method="POST">
+        <p>
+          <label for="ssid">SSID</label>
+          <input type="text" id="ssid" name="ssid" value="%SSID%"><br>
+          <label for="pass">Mot de passe Wifi</label>
+          <input type="password" id="pass" name="pass" value="%WIFIPASS%"><br>
+          <label for="mqttserver">Serveur MQTT</label>
+          <input type="text" id="mqttserver" name="mqttserver" value="%MQTTSERVER%"><br>
+          <label for="mqttuser">User MQTT</label>
+          <input type="text" id="mqttuser" name="mqttuser" value="%MQTTUSER%"><br>
+          <label for="mqttpass">Pass MQTT</label>
+          <input type="text" id="mqttpadd" name="mqttpass" value="%MQTTPASS%"><br>
+          <label for="mqttport">Port MQTT</label>
+          <input type="number" id="mqttport" name="mqttport"><br>
+
+          <input type="submit" value="Sauver">
+        </p>
+      </form>
+    </div>
+    <br>
+    <div class="card">
+      <div class="card-title">
+        Infos
+      </div>
+      <form action="/update" method="POST">
+        <p>
+          <label>Version : %VERSION%</label>
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
