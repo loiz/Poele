@@ -87,7 +87,7 @@ char Palazzetti::readRegistry(int addresse)
         {
             return trame[1];
         }
-        delay(200);
+        delay(100);
     }
     
     return 255;
@@ -135,7 +135,7 @@ void Palazzetti::setDate(struct tm timeinfo)
 {
     Serial.println("Set date");
     //writeRegistry(0x204E,timeinfo.tm_sec);
-    writeRegistry(0x204F,/*timeinfo.tm_min*/02);
+    //writeRegistry(0x204F,/*timeinfo.tm_min*/02);
     //writeRegistry(0x2050,timeinfo.tm_hour);
     //writeRegistry(0x2051,1);
     //writeRegistry(0x2051,timeinfo.tm_mday);
@@ -163,37 +163,37 @@ long Palazzetti::getT1()
 {
     int t1 = readRegistry(0x200E);
     int t2 = readRegistry(0x200F);
-    return ((t1<<8) +(t2))/10;
+    return ((long)((t2<<8) +(t1)))/10.0;
 }  
 
 long Palazzetti::getT2()
 {
     int t1 = readRegistry(0x2010);
     int t2 = readRegistry(0x2011);
-    return ((t1<<8) +(t2))/10;
+    return ((long)((t2<<8) +(t1)))/10.0;
 }  
   
 long Palazzetti::getT5()
 {
     int t1 = readRegistry(0x2012);
     int t2 = readRegistry(0x2013);
-    return ((t1<<8) +(t2))/10;
+    return ((long)((t2<<8) +(t1)))/10.0;
 }  
   
 long Palazzetti::getExhausttemp()
 {
     int t1 = readRegistry(0x200A);
     int t2 = readRegistry(0x200B);
-    return ((t1<<8) +(t2))/10;
+    return ((long)((t2<<8) +(t1)))/10.0;
 }  
 
 int Palazzetti::getSetPoint()
 {
-    return (int)readRegistry(0x1C33);
+    return ((int)readRegistry(0x1C33)*2)/10;
 }
 
 void Palazzetti::setSetPoint(int setpoint)
 {
-    writeRegistry(0x1c33,setpoint);
+    writeRegistry(0x1C33,(setpoint*10)/2);
 }
 

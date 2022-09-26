@@ -170,13 +170,11 @@ payload = R"=====(
   "temperature_command_topic": "~/temp_cmd",
   "temperature_state_topic": "~/temp_state",
   "current_temperature_topic": "~/cur_temp",
-  "target_temp_step": 0.1,
+  "target_temp_step": 1,
   "min_temp": 7,
   "max_temp": 25,
   "modes": [
     "off",
-    "heat",
-    "auto"
     "heat"
   ],
   "mode_state_topic": "~/mode_state",
@@ -185,6 +183,8 @@ payload = R"=====(
   )=====";
   mqttClient.publish("homeassistant/climate/poele/config", 0, true, payload.c_str());
 
+  mqttClient.subscribe("homeassistant/climate/poele/mode_cmd",0);
+  mqttClient.subscribe("homeassistant/climate/poele/temp_cmd",0);
   mqttClient.onMessage(onMqttMessage);
 
 }
@@ -378,6 +378,8 @@ void loop()
     int power = poele.getPower();
     int setpoint = poele.getSetPoint();
     long temperature = poele.getT1();
+
+    log_v("Status %d - power : %d - setpoint : %d - temp : %ld",status,power,setpoint,temperature);
 
     if (status != last_status)
     {
